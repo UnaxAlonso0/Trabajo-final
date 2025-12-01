@@ -16,12 +16,6 @@
 powershell -ExecutionPolicy Bypass -File .\run-windows.ps1
 ```
 
-**O simplemente (si tu política de ejecución lo permite):**
-
-```powershell
-.\run-windows.ps1
-```
-
 **¡Eso es todo!** El script hará automáticamente:
 - ✅ Descargar e instalar **JDK 21** (si no lo tienes)
 - ✅ Descargar e instalar **JavaFX SDK 21** (si no lo tienes)
