@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.MainAppController">
+    <center>
+        <SplitPane dividerPositions="0.6">
+            <items>
+                <VBox spacing="8">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10" />
+                    </padding>
+                    <children>
+                        <Label text="Biblioteca" />
+                        <HBox spacing="6">
+                            <TextField fx:id="txtSearch" promptText="Buscar..." HBox.hgrow="ALWAYS" />
+                            <Button text="Buscar" fx:id="btnSearch" />
+                            <Button text="Mostrar todas" fx:id="btnShowAll" />
+                        </HBox>
+                        <ListView fx:id="listaCanciones" VBox.vgrow="ALWAYS" />
+                        <HBox spacing="6">
+                            <Button text="Añadir" fx:id="btnAddSong" />
+                            <Button text="Eliminar" fx:id="btnDeleteSong" />
+                            <Button text="Marcar/Desmarcar favorita" fx:id="btnFavorite" />
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <VBox spacing="8">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10" />
+                    </padding>
+                    <children>
+                        <Label text="Playlists" />
+                        <HBox spacing="6">
+                            <Button text="Crear" fx:id="btnCreatePlaylist" />
+                            <Button text="Eliminar" fx:id="btnDeletePlaylist" />
+                        </HBox>
+                        <ListView fx:id="listaPlaylists" prefHeight="150" />
+                        <Label text="Canciones en playlist" />
+                        <ListView fx:id="listaCancionesPlaylist" VBox.vgrow="ALWAYS" />
+                        <HBox spacing="6">
+                            <Button text="Añadir a playlist" fx:id="btnAddToPlaylist" />
+                            <Button text="Eliminar de playlist" fx:id="btnRemoveFromPlaylist" />
+                            <Button text="Reproducir playlist" fx:id="btnPlayPlaylist" />
+                        </HBox>
+                    </children>
+                </VBox>
+            </items>
+        </SplitPane>
+    </center>
+</BorderPane>
