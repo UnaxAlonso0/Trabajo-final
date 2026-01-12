@@ -27,9 +27,27 @@ function ExitWith($msg) {
 function DownloadFile($url, $outPath) {
     Write-Host "  Descargando: $url" -ForegroundColor Cyan
     try {
-        $ProgressPreference = 'SilentlyContinue'
-        Invoke-WebRequest -Uri $url -OutFile $outPath -UseBasicParsing -ErrorAction Stop
-        Write-Host "  Descarga completada." -ForegroundColor Green
+        # Iniciar descarga con indicador de progreso
+        $job = Start-Job -ScriptBlock {
+            param($url, $outPath)
+            $ProgressPreference = 'SilentlyContinue'
+            Invoke-WebRequest -Uri $url -OutFile $outPath -UseBasicParsing -ErrorAction Stop
+        } -ArgumentList $url, $outPath
+        
+        # Mostrar puntos mientras se descarga para indicar que está en progreso
+        $spinnerChars = @('|', '/', '-', '\')
+        $spinnerIndex = 0
+        while ($job.State -eq 'Running') {
+            Write-Host "`r  Descargando $($spinnerChars[$spinnerIndex % 4]) ..." -NoNewline -ForegroundColor Cyan
+            $spinnerIndex++
+            Start-Sleep -Milliseconds 500
+        }
+        
+        # Esperar a que termine completamente
+        $result = Receive-Job -Job $job -ErrorAction SilentlyContinue
+        Remove-Job -Job $job -Force
+        
+        Write-Host "`r  Descarga completada.                 " -ForegroundColor Green
         return $true
     } catch {
         Write-Host "  Error descargando: $_" -ForegroundColor Red
